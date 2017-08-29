@@ -84,7 +84,7 @@ MIGRATION_MODULES = {
 # DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool('DJANGO_DEBUG', True)
+DEBUG = env.bool('DJANGO_DEBUG', False)
 
 # FIXTURE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -252,7 +252,7 @@ AUTHENTICATION_BACKENDS = [
 # Some really nice defaults
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 
 ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
 ACCOUNT_ADAPTER = 'icemanapp.users.adapters.AccountAdapter'
