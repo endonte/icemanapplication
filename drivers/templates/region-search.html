@@ -1,0 +1,131 @@
+{% extends "base.html" %}{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-9">
+    <h2>Region Search</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="ibox float-e-margins">
+    <div class="ibox-content">
+      <form role="form" method="GET" action="" id="searchform" class="form-inline">
+        <div class="form-group">
+          <input class="form-control" maxlength="8" name="invoice" type="number" value="{{ request.GET.invoice }}" size="25" placeholder="Invoice 6-Digit Postal Code"/>
+        </div>
+        <div class="form-group">
+          <input class="form-control" maxlength="10" name="value" type="number" value="{{ request.GET.value }}" size="25" placeholder="Invoice Value"/>
+        </div>
+        <button class="btn">Search Driver</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    {% for driver in drivers %}
+    {% if driver.designation == designation.0 %}
+      <div class="col-lg-3">
+        <div class="widget style1 navy-bg">
+          <div class="row">
+            <div class="col-lg-2">
+              <h2 class="font-bold">1</h2>
+            </div>
+            <div class="col-lg-10">
+              <h1 class="m-xs">{{driver}}</h1>
+              <span>{{driver.designation}}</span><br />
+              <span>{{driver.phone_number}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% endfor %}
+
+    {% if not token %}
+    {% for driver in drivers %}
+    {% if driver.designation == designation.2 %}
+      <div class="col-lg-3">
+        <div class="widget style1 navy-bg">
+          <div class="row">
+            <div class="col-lg-2">
+              <h2 class="font-bold">1</h2>
+            </div>
+            <div class="col-lg-10">
+              <h1 class="m-xs">{{driver}}</h1>
+              <span>{{driver.designation}}</span><br />
+              <span>{{driver.phone_number}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% for driver in drivers %}
+    {% if driver.designation == designation.1 %}
+      <div class="col-lg-3">
+        <div class="widget style1 lazur-bg">
+          <div class="row">
+            <div class="col-lg-2">
+              <h2 class="font-bold">2</h2>
+            </div>
+            <div class="col-lg-10">
+              <h1 class="m-xs">{{driver}}</h1>
+              <span>{{driver.designation}}</span><br />
+              <span>{{driver.phone_number}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% endfor %}
+
+    {% if token %}
+    {% for driver in drivers %}
+    {% if driver.designation == designation.2 %}
+      <div class="col-lg-3">
+        <div class="widget style1 yellow-bg">
+          <div class="row">
+            <div class="col-lg-2">
+              <h2 class="font-bold">3</h2>
+            </div>
+            <div class="col-lg-10">
+              <h1 class="m-xs">{{driver}}</h1>
+              <span>{{driver.designation}}</span><br />
+              <span>{{driver.phone_number}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+
+    {% for driver in drivers %}
+    {% if driver.designation == designation.3 %}
+      <div class="col-lg-3">
+        <div class="widget style1 red-bg">
+          <div class="row">
+            <div class="col-lg-2">
+              <h2 class="font-bold">4</h2>
+            </div>
+            <div class="col-lg-10">
+              <h1 class="m-xs">{{driver}}</h1>
+              <span>{{driver.designation}}</span><br />
+              <span>{{driver.phone_number}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}

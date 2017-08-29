@@ -1,0 +1,47 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}Order Tracker{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    {% block css %}
+    <!-- Latest compiled and minified Bootstrap 4 Alpha 4 CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    <link href="{% static 'fonts/css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'css/plugins/jQueryUI/jquery-ui-1.10.4.custom.min.css' %}" rel="stylesheet">
+    <!-- This file stores project-specific CSS -->
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    {% endblock %}
+  </head>
+  <body class="top-navigation">
+    <div id="wrapper">
+      <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom white-bg">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="ibox flat-e-margins">
+                {% block content %}
+                <div class="ibox-title">
+                  <h5>Confirm Request <br /><br />ID: {{request_details.id}} <br />for Store: {{request_details.requesting_store.store_no}}</h5>
+                </div>
+                <div class="ibox-content">
+                {% crispy form %}
+
+                {% endblock %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
