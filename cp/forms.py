@@ -15,6 +15,7 @@ class DriverEditForm(forms.ModelForm):
                 'phone_number',
                 'wechat_id',
                 'delivery_areas',
+                'delivery_restrictions',
         )
 
     def __init__(self, *args, **kwargs):

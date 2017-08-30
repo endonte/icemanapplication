@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.views.generic.edit import ModelFormMixin
+from django.http import HttpResponseRedirect
 from .forms import DriverEditForm
 from drivers.models import Drivers
 
@@ -20,7 +21,8 @@ class DriverEditListView(ListView, ModelFormMixin):
         self.form = self.get_form(self.form_class)
 
         if self.form.is_valid():
-
+            self.object = self.form.save(commit=False)
+            self.object.save()
             self.form = self.get_form(self.form_class)
 
             return HttpResponseRedirect('/cp/edit-driver')
