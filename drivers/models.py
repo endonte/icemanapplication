@@ -41,6 +41,12 @@ class Drivers(models.Model):
         'Postal_Areas',
         verbose_name='Regions Served',
     )
+    delivery_restrictions = models.CharField(
+        max_length=200,
+        verbose_name='Delivery Restrictions',
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         if self.nick_name:
