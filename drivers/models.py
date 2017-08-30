@@ -61,7 +61,7 @@ class Postal_Areas(models.Model):
     )
 
     def __str__(self):
-        return self.postal_areas
+        return '{} {}'.format(self.postal_areas, self.region_names)
 
     class Meta:
         ordering = ('postal_areas', )
