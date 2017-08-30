@@ -14,16 +14,10 @@
 <script src="{% static 'js/plugins/footable/footable.all.min.js' %}"></script>
 
 <script>
-    $(document).ready(function() {
 
-        $('.footable').footable({
-          "columns": [{
-            "filterable": false
-          }]
-        });
-
-    });
-
+jQuery(function($){
+  $('.table').footable();
+});
 </script>
 
 {% endblock %}
@@ -38,14 +32,17 @@
           <h5>Driver List</h5>
         </div>
         <div class="ibox-content">
-          <input type="text" class="form-control input-sm m-b-xs" id="filter"
-                 placeholder="Search Drivers">
-          <table class="footable table table-stripped toggle-arrow-tiny"
-            data-page-size="15" data-filter=#filter>
+          <div id="filter-form-container">
+            <input type="text" class="form-control input-sm m-b-xs"
+                   placeholder="Search Drivers">
+          </div>
+
+          <table class="table footable footable-filtering footable-paging footable-paging-center" data-filtering="true" data-paging="true">
             <thead>
               <tr>
-                <th data-toggle="true">Driver Name</th>
+                <th data-breakpoints="xs" data-toggle="true">Driver Name</th>
                 <th data-filterable="false">Designation</th>
+                <th data-hide="all">Full Name</th>
                 <th>Phone #</th>
                 <th>WeChat ID</th>
                 <th data-hide="all" data-filterable="false">Areas Served</th>
@@ -57,6 +54,7 @@
               <tr>
                 <td>{{driver}}</td>
                 <td>{{driver.designation}}</td>
+                <td>{{driver.full_name}}</td>
                 <td>{{driver.phone_number}}</td>
                 <td>{{driver.wechat_id}}</td>
                 <td>{% for areas in driver.delivery_areas.all %}{{areas}}: {{areas.region_names}}<br />{% endfor %}</td>
