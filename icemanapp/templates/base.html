@@ -41,6 +41,7 @@
               <a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home"></i><span class="nav-label">Home</span></a>
             </li>
             <!--Drivers Dropdown Nav-->
+            {% if user.is_superuser %}
             <li {% if '/drivers/' in request.path %} class="active" {% endif %}>
               <a href="#"><i class="fa fa-truck"></i> <span class="nav-label">Drivers</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
@@ -52,6 +53,7 @@
                 </li>
               </ul>
             </li>
+            {% endif %}
             <!--711 Dropdown Nav-->
             <li {% if '/s11/' in request.path %} class="active" {% endif %}>
               <a href="#"><i class="fa fa-industry"></i> <span class="nav-label">711</span> <span class="fa arrow"></span></a>
