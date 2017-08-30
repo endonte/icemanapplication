@@ -16,7 +16,11 @@
 <script>
     $(document).ready(function() {
 
-        $('.footable').footable();
+        $('.footable').footable({
+          "columns": [{
+            "filterable": false
+          }]
+        });
 
     });
 
