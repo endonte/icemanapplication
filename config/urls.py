@@ -19,6 +19,7 @@ urlpatterns = [
     # Your stuff: custom urls includes go here
     url(r'^drivers/', include('drivers.urls')),
     url(r'^s11/', include('s11.urls')),
+    url(r'^cp/', include('cp.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

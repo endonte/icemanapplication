@@ -69,7 +69,15 @@
                 </li>
               </ul>
             </li>
-
+            <!--Admin Dropdown Nav-->
+            <li {% if '/cp/' in request.path %} class="active" {% endif %}>
+              <a href="#"><i class="fa fa-industry"></i> <span class="nav-label">Admin</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li {% if request.path == '/cp/edit-driver/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="{% url 'edit-driver' %}"><span class="nav-label">Edit Driver</span></a>
+                </li>
+              </ul>
+            </li>
           </ul>
 
         </div>
@@ -118,7 +126,7 @@
     <center><h1 class="logo-name">ICEMAN</h1></center>
     <div class="middle-box text-center loginscreen animated fadeInDown">
       <div>
-        
+
         <h3>Welcome to ICEMAN</h3>
         <p>You are not signed in. Please click below to sign in.
         </p>
