@@ -81,7 +81,7 @@
     </div>
   </div>
 
-
+  {% if user.is_superuser %}
   <div class="col-md-3">
     {% if form.errors %}
       <div class="ibox float-e-margins">
@@ -108,6 +108,7 @@
       </div>
 
   </div>
+  {% endif %}
 
 </div>
 
