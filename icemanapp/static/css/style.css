@@ -1782,6 +1782,9 @@ div.dt-button-info {
 .widget.style1 h2 {
   font-size: 30px;
 }
+.widget.style1 h3 {
+  font-size: 20px;
+}
 .widget h2,
 .widget h3 {
   margin-top: 5px;
