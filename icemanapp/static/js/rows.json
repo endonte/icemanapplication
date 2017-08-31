@@ -1,0 +1,43 @@
+[
+  {
+    "full_name": "Chen Zhou",
+    "nick_name": null,
+    "designation": "Agent",
+    "phone_number": "12312323",
+    "wechat_id": null,
+    "delivery_areas": "[
+      {
+        \"model\": \"drivers.postal_areas\",
+        \"pk\": 1,
+        \"fields\": {\"postal_areas\": \"14\",
+        \"region_names\": \"Aljunied/Geylang/Kallang\"
+      }
+      }]",
+    "delivery_restrictions": "None"
+  },
+  {
+    "full_name": "Kampy",
+    "nick_name": null,
+    "designation": "Reserve Driver",
+    "phone_number": "12308008",
+    "wechat_id": null,
+    "delivery_areas": "[
+      {
+        \"model\": \"drivers.postal_areas\",
+        \"pk\": 3, \"fields\": {
+          \"postal_areas\": \"35\",
+          \"region_names\": \"Tampines/Simei\"
+        }
+      }]",
+    "delivery_restrictions": null
+  },
+  {
+    "full_name": "Ragunath",
+    "nick_name": "Ragu",
+    "designation": "Agent",
+    "phone_number": "89898989",
+    "wechat_id": null,
+    "delivery_areas": "[]",
+    "delivery_restrictions": null
+  }
+]

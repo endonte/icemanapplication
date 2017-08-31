@@ -32,12 +32,9 @@ jQuery(function($){
           <h5>Driver List</h5>
         </div>
         <div class="ibox-content">
-          <div id="filter-form-container">
-            <input type="text" class="form-control input-sm m-b-xs"
-                   placeholder="Search Drivers">
-          </div>
 
-          <table class="table footable footable-filtering footable-paging footable-paging-center" data-filtering="true" data-paging="true">
+          <table class="table footable"
+            data-filtering="true" data-paging="true">
             <thead>
               <tr>
                 <th data-breakpoints="xs" data-toggle="true">Driver Name</th>
@@ -63,11 +60,11 @@ jQuery(function($){
               {% endfor %}
             </tbody>
             <tfoot>
-            <tr>
-                <td colspan="5">
-                    <ul class="pagination pull-right"></ul>
-                </td>
-            </tr>
+              <tr>
+                  <td colspan="5">
+                      <ul class="pagination pull-right"></ul>
+                  </td>
+              </tr>
             </tfoot>
           </table>
         </div>

@@ -1,0 +1,9 @@
+[
+  {"name": "fullName", "title": "Driver Name (Passport/IC)"},
+  {"name": "nickName", "title": "Driver Nick Name"},
+  {"name": "designation", "title": "Driver Role"},
+  {"name": "phoneNumber", "title": "Contact Number"},
+  {"name": "wechatId", "title": "Driver WeChat ID"},
+  {"name": "deliveryAreas", "title": "Regions Served"},
+  {"name": "deliveryRestrictions", "title": "Delivery Restrictions"}
+]

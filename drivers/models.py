@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.core import serializers
 
 # Create your models here.
 class Designation(models.Model):
@@ -52,6 +53,43 @@ class Drivers(models.Model):
         if self.nick_name:
             return '{}'.format(self.nick_name)
         return '{}'.format(self.full_name)
+
+    def as_dict(self):
+        return {
+            "full_name": self.full_name,
+            "nick_name": self.nick_name,
+            "designation": self.designation.designation,
+            "phone_number": self.phone_number,
+            "wechat_id": self.wechat_id,
+            "delivery_areas": serializers.serialize('json',
+                self.delivery_areas.filter(id=self.id)
+            ),
+            "delivery_restrictions": self.delivery_restrictions,
+        }
+    def column_as_dict(self):
+        return {
+            {"name": "fullName",
+                "title": Drivers._meta.get_field('full_name').verbose_name
+            },
+            {"name": "nickName",
+                "title": Drivers._meta.get_field('nick_name').verbose_name
+            },
+            {"name": "designation",
+                "title": Drivers._meta.get_field('designation').verbose_name
+            },
+            {"name": "phoneNumber",
+                "title": Drivers._meta.get_field('phone_number').verbose_name
+            },
+            {"name": "wechatId",
+                "title": Drivers._meta.get_field('wechat_id').verbose_name
+            },
+            {"name": "deliveryAreas",
+                "title": Drivers._meta.get_field('delivery_areas').verbose_name
+            },
+            {"name": "deliveryRestrictions",
+                "title": Drivers._meta.get_field('delivery_restrictions').verbose_name
+            },
+        }
 
     class Meta:
         ordering = ('full_name', )
