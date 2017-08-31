@@ -32,10 +32,15 @@
 
           <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'users:detail' request.user.username  %}">{% trans "My Profile" %}</a>
-                {# URL provided by django-allauth/account/urls.py #}
-                <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+              <div class="profile-element">
+                <span class="clear"> <span class="block m-t-xs"><a class="nav-link" href="{% url 'users:detail' request.user.username  %}"><strong>USER: {{user.get_username}}</strong></a></span>
+                <span class="text-muted text-xs block"><a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a></span></span>
+                <br /><span class="text-muted text-xs block">Welcome to Iceman!</span>
+              </div>
+              <div class="logo-element">
+                ICEMAN
+              </div>
+
             </li>
             <li {% if request.path == '/' %} class="active" {% endif %}>
               <a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home"></i><span class="nav-label">Home</span></a>
@@ -46,10 +51,10 @@
               <a href="#"><i class="fa fa-truck"></i> <span class="nav-label">Drivers</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li {% if request.path == '/drivers/driver-list/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="{% url 'driver-list' %}"><span class="nav-label">Driver List</span></a>
+                  <a class="nav-link" href="{% url 'driver-list' %}">Driver List</a>
                 </li>
                 <li {% if request.path == '/tracker/stores/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="{% url 'region-search' %}"><span class="nav-label">Region Search</span></a>
+                  <a class="nav-link" href="{% url 'region-search' %}">Region Search</a>
                 </li>
               </ul>
             </li>
@@ -59,23 +64,42 @@
               <a href="#"><i class="fa fa-industry"></i> <span class="nav-label">711</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li {% if request.path == '/s11/active-requests/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="{% url 'active-requests' %}"><span class="nav-label">Active Requests</span></a>
+                  <a class="nav-link" href="{% url 'active-requests' %}">Active Requests</a>
                 </li>
                 <li {% if request.path == '/s11/request-history/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="{% url 'request-history' %}"><span class="nav-label">Request History</span></a>
+                  <a class="nav-link" href="{% url 'request-history' %}">Request History</a>
                 </li>
                 <li {% if request.path == '/s11/store-list/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="{% url 'store-list' %}"><span class="nav-label">Store List</span></a>
+                  <a class="nav-link" href="{% url 'store-list' %}">Store List</a>
                 </li>
               </ul>
             </li>
+            {% if user.is_superuser %}
+            <li {% if '/s11/' in request.path %} class="active" {% endif %}>
+              <a href="#"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Quotations</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li {% if request.path == '/s11/active-requests/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="#">Create Quotation</a>
+                </li>
+                <li {% if request.path == '/s11/request-history/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="#">Quotations List</a>
+                </li>
+              </ul>
+            </li>
+            {% endif %}
             <!--Admin Dropdown Nav-->
             {% if user.is_superuser %}
             <li {% if '/cp/' in request.path %} class="active" {% endif %}>
-              <a href="#"><i class="fa fa-industry"></i> <span class="nav-label">Admin</span> <span class="fa arrow"></span></a>
+              <a href="#"><i class="fa fa-list"></i> <span class="nav-label">Admin</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li {% if request.path == '/cp/edit-driver/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="{% url 'edit-driver' %}"><span class="nav-label">Edit Driver</span></a>
+                  <a class="nav-link" href="{% url 'edit-driver' %}">Edit Driver</a>
+                </li>
+                <li {% if request.path == '/cp/edit-driver/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="#">Edit Products</a>
+                </li>
+                <li {% if request.path == '/cp/edit-driver/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="#">Edit Customers</a>
                 </li>
               </ul>
             </li>
