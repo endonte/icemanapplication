@@ -59,6 +59,8 @@ LOCAL_APPS = [
     's11',
     'drivers',
     'cp',
+    'products',
+    'customers',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

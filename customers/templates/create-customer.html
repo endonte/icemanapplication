@@ -1,0 +1,59 @@
+{% extends "base.html" %}{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+
+{{ block.super }}
+<link href="{% static 'css/plugins/footable/footable.core.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+
+{{ block.super }}
+
+<script src="{% static 'js/plugins/footable/footable.all.min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable();
+
+    });
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    {% if form.errors %}
+      <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Error Validating form</h5>
+          </div>
+          <div class="ibox-content">
+            {% for error in errorlist %}
+              <div>
+                {{ error }}
+              </div>
+            {% endfor %}
+
+          </div>
+      </div>
+    {% endif %}
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Add Customer</h5>
+        </div>
+        <div class="ibox-content">
+          {% crispy form %}
+        </div>
+      </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %}{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Contact Details</h5>
+          </div>
+          <div class="ibox-content">
+            <table class="table table-responsive">
+              <tr><td class="col-md-4">Name</td><td>{{customer.contact_name}}</td></tr>
+              <tr><td>Phone Number</td><td>{{customer.contact_number}}</td></tr>
+              <tr><td>Email</td><td>{{customer.contact_email}}</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Company Details</h5>
+          </div>
+          <div class="ibox-content">
+            <table class="table table-responsive">
+              <tr><td class="col-md-4">Business Name</td><td>{{customer.company_name}}</td></tr>
+              <tr><td>Business Reg No</td><td>{{customer.company_reg_no}}</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    {% if form.errors %}
+      <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>Error Validating form</h5>
+          </div>
+          <div class="ibox-content">
+            {% for error in errorlist %}
+              <div>
+                {{ error }}
+              </div>
+            {% endfor %}
+
+          </div>
+      </div>
+    {% endif %}
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Add Billing Details</h5>
+        </div>
+        <div class="ibox-content">
+          {% crispy form %}
+        </div>
+      </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

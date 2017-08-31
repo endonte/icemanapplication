@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
-# Create your models here.
 class Designation(models.Model):
     designation = models.CharField(
         max_length=30,

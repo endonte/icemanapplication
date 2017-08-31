@@ -20,6 +20,8 @@ urlpatterns = [
     url(r'^drivers/', include('drivers.urls')),
     url(r'^s11/', include('s11.urls')),
     url(r'^cp/', include('cp.urls')),
+    url(r'^', include('products.urls')),
+    url(r'^customers/', include('customers.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

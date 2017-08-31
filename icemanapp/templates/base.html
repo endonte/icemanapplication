@@ -86,6 +86,26 @@
               </ul>
             </li>
             {% endif %}
+            <!--Customer Dropdown Nav-->
+            {% if user.is_superuser %}
+            <li {% if '/s11/' in request.path %} class="active" {% endif %}>
+              <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Customers</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li {% if request.path == '/customers/create-customer/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="{% url 'create-customer' %}">Create Customer</a>
+                </li>
+                <li {% if request.path == '/customers/customer-list/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="{% url 'customer-list' %}">Customer List</a>
+                </li>
+              </ul>
+            </li>
+            {% endif %}
+            <!--Product Button Nav-->
+            {% if user.is_superuser %}
+            <li {% if request.path == '/product-list/' %} class="active" {% endif %}>
+              <a class="nav-link" href="{% url 'product-list' %}"><i class="fa fa-snowflake-o"></i><span class="nav-label">Products</span></a>
+            </li>
+            {% endif %}
             <!--Admin Dropdown Nav-->
             {% if user.is_superuser %}
             <li {% if '/cp/' in request.path %} class="active" {% endif %}>
@@ -97,8 +117,8 @@
                 <li {% if request.path == '/cp/edit-s11-store/' %} class="active" {% endif %}>
                   <a class="nav-link" href="{% url 'edit-s11-store' %}">Edit 7-11</a>
                 </li>
-                <li {% if request.path == '/cp/edit-driver/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="#">Edit Products</a>
+                <li {% if request.path == '/cp/edit-product/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="{% url 'edit-product' %}">Edit Products</a>
                 </li>
                 <li {% if request.path == '/cp/edit-driver/' %} class="active" {% endif %}>
                   <a class="nav-link" href="#">Edit Customers</a>
