@@ -48,8 +48,7 @@
                 <th data-filterable="false">Designation</th>
                 <th>Phone #</th>
                 <th>WeChat ID</th>
-                <th data-hide="all" data-filterable="false">Areas Served</th>
-                <th data-hide="all" data-filterable="false">Delivery Restrictions</th>
+                <th>Delivery Info</th>
               </tr>
             </thead>
             <tbody>
@@ -59,8 +58,11 @@
                 <td>{{driver.designation}}</td>
                 <td>{{driver.phone_number}}</td>
                 <td>{{driver.wechat_id}}</td>
-                <td>{% for areas in driver.delivery_areas.all %}{{areas}}: {{areas.region_names}}<br />{% endfor %}</td>
-                <td>{{driver.delivery_restrictions}}</td>
+                <td>
+                  <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#{{driver.id}}">Details</button>
+                </td>
+
+
               </tr>
               {% endfor %}
             </tbody>
@@ -73,6 +75,29 @@
             </tfoot>
           </table>
         </div>
+        {% for driver in drivers %}
+        <div id="{{driver.id}}" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <h4 class="modal-title">Delivery Details:</h4>
+
+              <div class="modal-body">
+                <h5>Restrictions:</h5>
+                <p>{{driver.delivery_restrictions}}</p>
+
+                <h5>Areas Served</h5>
+                {% for areas in driver.delivery_areas.all %}<p>{{areas}}: {{areas.region_names}}</p>{% endfor %}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
   </div>

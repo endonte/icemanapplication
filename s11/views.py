@@ -8,39 +8,17 @@ from icemanapp.users.models import User
 from django.utils import timezone
 from .models import Store, StoreRequest
 from drivers.models import Drivers
-from .forms import StoreForm, StoreRequestForm, StoreConfirmForm
+from .forms import StoreRequestForm, StoreConfirmForm
 
 # Create your views here.
-class StoreListView(ListView, ModelFormMixin):
+class StoreListView(ListView):
     model = Store
-    form_class = StoreForm
     template_name = 'store-list.html'
-
-    def get(self, request, *args, **kwargs):
-        self.object = None
-        self.form = self.get_form(self.form_class)
-
-        return ListView.get(self, request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        self.form = self.get_form(self.form_class)
-
-        if self.form.is_valid():
-            self.object = self.form.save(commit=False)
-            self.object.save()
-            self.form = self.get_form(self.form_class)
-
-            return HttpResponseRedirect('/s11/store-list')
-
-        return self.get(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super(StoreListView, self).get_context_data(*args, **kwargs)
 
         context['stores'] = Store.objects.all()
-        context['form'] = self.form
-        context['errorlist'] = self.form.errors
 
         return context
 
