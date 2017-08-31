@@ -40,21 +40,23 @@
             data-page-size="15" data-filter=#filter>
             <thead>
               <tr>
-                <th data-toggle="true">Customer</th>
+                <th>Company Name</th>
+                <th>Company Reg No</th>
                 <th>Contact Name</th>
                 <th>Contact Number</th>
-                <th data-hide="all">Contact Email</th>
-                <th data-hide="all">Company Registration Number</th>
+                <th>Contact Email</th>
+                <th>Additional Details</th>
               </tr>
             </thead>
             <tbody>
               {% for customer in customers %}
               <tr>
-                <td>{{customer}}</td>
+                <td>{{customer.company_name}}</td>
+                <td>{{customer.company_reg_no}}</td>
                 <td>{{customer.contact_name}}</td>
                 <td>{{customer.contact_number}}</td>
                 <td>{{customer.contact_email}}</td>
-                <td>{{customer.company_reg_no}}</td>
+                <td><button class="btn btn-primary btn-xs">View</button></td>
               </tr>
               {% endfor %}
             </tbody>
