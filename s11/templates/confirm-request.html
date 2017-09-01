@@ -8,12 +8,18 @@
   <h1 class="logo-name">7-11</h1>
 </center>
 <div class="middle-box text-center loginscreen animated fadeInDown">
-  <div>
+  <div class="ibox-content">
     <h3>Confirm Request</h3>
-    <h5>ID: {{request_details.id}}</h5>
-    <h5>Store: {{request_details.requesting_store.store_no}}</h5>
+    <h5>Request ID: {{request_details.id}}</h5>
+    <h5>Requesting Store: {{request_details.requesting_store.store_no}}</h5>
+    {% if not request_details.request_confirmed_by %}
 
       {% crispy form %}
+    {% else %}
+      <hr />
+      <h5>Request Already Confirmed</h5>
+      <a href="{% url 'active-requests' %}"><button class="btn btn-primary btn-block">Return</button></a>
+    {% endif %}
   </div>
 </div>
 
