@@ -54,8 +54,8 @@
             <tbody>
               {% for driver in drivers %}
               <tr>
-                <td>{{driver}}</td>
-                <td>{{driver.designation}}</td>
+                <td>{{driver.full_name}}{%if driver.nick_name%}({{driver.nick_name}}){%endif%}</td>
+                <td>{{driver.designation.designation}}</td>
                 <td>{{driver.phone_number}}</td>
                 <td>{{driver.wechat_id}}</td>
                 <td>

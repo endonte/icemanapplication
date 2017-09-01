@@ -19,10 +19,15 @@ class RegionSearchListView(ListView):
     template_name = 'region-search.html'
     critical_value = 70
     token = False
+    invoice_token = False
 
     def get_queryset(self):
         invoice = self.request.GET.get('invoice')
         value = self.request.GET.get('value')
+        if invoice:
+            self.invoice_token = False
+        else:
+            self.invoice_token = True
         if value:
             if int(value) > self.critical_value:
                 self.token = True
@@ -37,6 +42,10 @@ class RegionSearchListView(ListView):
         context = super(RegionSearchListView, self).get_context_data(*args, **kwargs)
 
         context['designation'] = Designation.objects.all()
-        context.update({'drivers': self.get_queryset, 'token': self.token})
+        context.update({
+            'drivers': self.get_queryset,
+            'token': self.token,
+            'invoice_token': self.invoice_token,
+        })
 
         return context

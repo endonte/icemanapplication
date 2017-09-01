@@ -40,5 +40,5 @@ class CustomerBillingForm(forms.ModelForm):
         self.helper.help_text_inline = False
         self.helper.form_error_title = 'Form Errors'
 
-        self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.add_input(Submit('submit', 'Submit', css_class='btn-block btn primary'))
         super(CustomerBillingForm, self).__init__(*args, **kwargs)

@@ -6,9 +6,30 @@ class Designation(models.Model):
         max_length=30,
         unique=True,
     )
+    PRIORITY_CHOICES = (
+        ('1','Route Drivers'),
+        ('2',''),
+        ('3','Half-Agent'),
+        ('4',''),
+        ('5','Reserve Drivers'),
+        ('6',''),
+        ('7','Agent'),
+        ('8',''),
+        ('9','Unresponsive'),
+        ('10',''),
+    )
+    priority = models.CharField(
+        max_length=2,
+        choices=PRIORITY_CHOICES,
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
-        return '{}'.format(self.designation)
+        return '{} {}'.format(self.priority, self.designation)
+
+    class Meta:
+        ordering = ('priority', )
 
 class Drivers(models.Model):
     full_name = models.CharField(
@@ -49,11 +70,11 @@ class Drivers(models.Model):
 
     def __str__(self):
         if self.nick_name:
-            return '{}'.format(self.nick_name)
-        return '{}'.format(self.full_name)
+            return '{} {}'.format(self.designation.priority, self.nick_name)
+        return '{} {}'.format(self.designation.priority, self.full_name)
 
     class Meta:
-        ordering = ('full_name', )
+        ordering = ('designation','full_name', )
 
 class Postal_Areas(models.Model):
     postal_areas = models.CharField(

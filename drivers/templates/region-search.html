@@ -23,19 +23,100 @@
     </div>
   </div>
 </div>
+
 <div class="wrapper wrapper-content animated fadeInRight">
+  {% if invoice_token %}
+  <div class="row">
+    <!--No Approval-->
+    <div class="col-lg-3">
+      <div class="widget style1 navy-bg">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="font-bold">No Approval Needed</h2>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-lg-12">
+            <span>Drivers with this color may be given orders without approval. These drivers may be route drivers or half-agents. Half-agents do not require approval when being assigned orders with values less than $70.00.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Soft Approval Needed-->
+    <div class="col-lg-3">
+      <div class="widget style1 lazur-bg">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="font-bold">Approval Needed</h2>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-lg-12">
+            <span>Drivers with this color may be given orders with approval. These drivers are reserve drivers. Drivers plans must be checked to ensure that there are not more suitable drivers that are able to deliver to the area.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Soft Approval Needed-->
+    <div class="col-lg-3">
+      <div class="widget style1 yellow-bg">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="font-bold">Approval Needed</h2>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-lg-12">
+            <span>Drivers with this color may be given orders with approval. This label is assigned to Half-Agents. Approval is required when the invoice value is above $70.00. Orders below the limit do not require approval.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Restricted-->
+    <div class="col-lg-3">
+      <div class="widget style1 red-bg">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="font-bold">Approval Required</h2>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-lg-12">
+            <span>Drivers with this color may only be given orders with approval. These Drivers may be distributors or Half-Agents prone to rejecting orders or deliverying outside the required timing window.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  {% if drivers %}
   <div class="row">
     {% for driver in drivers %}
-    {% if driver.designation == designation.0 %}
       <div class="col-lg-3">
-        <div class="widget style1 navy-bg">
+        <div class="widget style1
+        {% if driver.designation.priority == '1' %}
+          navy-bg
+        {% elif driver.designation.priority == '3' and not token %}
+          navy-bg
+        {% elif driver.designation.priority == '5' %}
+          lazur-bg
+        {% elif driver.designation.priority == '3' %}
+          yellow-bg
+        {% else %}
+          red-bg
+        {% endif %}
+        ">
           <div class="row">
             <div class="col-lg-2">
-              <h2 class="font-bold">1</h2>
+              <h2 class="font-bold">{{driver.designation.priority}}</h2>
             </div>
             <div class="col-lg-10">
               <h3 class="m-xxs">{{driver}}</h3>
-              <span>{{driver.designation}}</span><br />
+              <span>{{driver.designation.designation}}</span><br />
               <span>{{driver.phone_number}}</span>
             </div>
           </div>
@@ -48,118 +129,12 @@
           </div>
         </div>
       </div>
-    {% endif %}
-    {% endfor %}
-
-    {% if not token %}
-    {% for driver in drivers %}
-    {% if driver.designation == designation.3 %}
-      <div class="col-lg-3">
-        <div class="widget style1 navy-bg">
-          <div class="row">
-            <div class="col-lg-2">
-              <h2 class="font-bold">1</h2>
-            </div>
-            <div class="col-lg-10">
-              <h3 class="m-xxs">{{driver}}</h3>
-              <span>{{driver.designation}}</span><br />
-              <span>{{driver.phone_number}}</span>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-lg-12">
-              <strong>Driver Restrictions:</strong><br />
-              <span>{{driver.delivery_restrictions}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
-
-    {% for driver in drivers %}
-    {% if driver.designation == designation.1 %}
-      <div class="col-lg-3">
-        <div class="widget style1 lazur-bg">
-          <div class="row">
-            <div class="col-lg-2">
-              <h2 class="font-bold">2</h2>
-            </div>
-            <div class="col-lg-10">
-              <h3 class="m-xxs">{{driver}}</h3>
-              <span>{{driver.designation}}</span><br />
-              <span>{{driver.phone_number}}</span>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-lg-12">
-              <strong>Driver Restrictions:</strong><br />
-              <span>{{driver.delivery_restrictions}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endif %}
-    {% endfor %}
-
-    {% if token %}
-    {% for driver in drivers %}
-    {% if driver.designation == designation.3 %}
-      <div class="col-lg-3">
-        <div class="widget style1 yellow-bg">
-          <div class="row">
-            <div class="col-lg-2">
-              <h2 class="font-bold">3</h2>
-            </div>
-            <div class="col-lg-10">
-              <h3 class="m-xxs">{{driver}}</h3>
-              <span>{{driver.designation}}</span><br />
-              <span>{{driver.phone_number}}</span>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-lg-12">
-              <strong>Driver Restrictions:</strong><br />
-              <span>{{driver.delivery_restrictions}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endif %}
-    {% endfor %}
-    {% endif %}
-
-
-    {% for driver in drivers %}
-    {% if driver.designation == designation.2 %}
-      <div class="col-lg-3">
-        <div class="widget style1 red-bg">
-          <div class="row">
-            <div class="col-lg-2">
-              <h2 class="font-bold">4</h2>
-            </div>
-            <div class="col-lg-10">
-              <h3 class="m-xxs">{{driver}}</h3>
-              <strong>{{driver.designation}}</strong><br />
-              <span>{{driver.phone_number}}</span>
-            </div>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-lg-12">
-              <strong>Driver Restrictions:</strong><br />
-              <span>{{driver.delivery_restrictions}}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    {% endif %}
     {% endfor %}
   </div>
+  {% else %}
+  <h1 class="logo-name">NO DRIVERS FOUND</h1>
+  {% endif %}
+  {% endif %}
 </div>
 
 
