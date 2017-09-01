@@ -26,7 +26,7 @@ class Designation(models.Model):
     )
 
     def __str__(self):
-        return '{} {}'.format(self.priority, self.designation)
+        return '{} {}'.format(self.designation)
 
     class Meta:
         ordering = ('priority', )
@@ -70,8 +70,8 @@ class Drivers(models.Model):
 
     def __str__(self):
         if self.nick_name:
-            return '{} {}'.format(self.designation.priority, self.nick_name)
-        return '{} {}'.format(self.designation.priority, self.full_name)
+            return '{} {}'.format(self.nick_name, self.designation.designation)
+        return '{} {}'.format(self.full_name, self.designation.designation)
 
     class Meta:
         ordering = ('designation','full_name', )

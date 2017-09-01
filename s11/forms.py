@@ -19,7 +19,7 @@ class StoreRequestForm(forms.ModelForm):
         self.helper.help_text_inline = False
         self.helper.form_error_title = 'Form Errors'
 
-        self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.add_input(Submit('submit', 'Submit Request', css_class='btn-block btn primary'))
         super(StoreRequestForm, self).__init__(*args, **kwargs)
 
 class StoreConfirmForm(forms.ModelForm):
@@ -32,10 +32,9 @@ class StoreConfirmForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
-        self.helper.form_class = 'form-inline'
         self.helper.form_method = 'post'
         self.helper.help_text_inline = False
         self.helper.form_error_title = 'Form Errors'
 
-        self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.add_input(Submit('submit', 'Confirm Delivery', css_class='btn-block btn primary'))
         super(StoreConfirmForm, self).__init__(*args, **kwargs)
