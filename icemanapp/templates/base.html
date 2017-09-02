@@ -74,13 +74,13 @@
             </li>
             <!--Quotation Dropdown Nav-->
             {% if user.is_superuser %}
-            <li {% if '/s11/' in request.path %} class="active" {% endif %}>
+            <li {% if '/quotations/' in request.path %} class="active" {% endif %}>
               <a href="#"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Quotations</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
-                <li {% if request.path == '/s11/active-requests/' %} class="active" {% endif %}>
+                <li {% if '/create-quotation/' in request.path %} class="active" {% endif %}>
                   <a class="nav-link" href="{% url 'create-quotation' %}">Create Quotation</a>
                 </li>
-                <li {% if request.path == '/s11/request-history/' %} class="active" {% endif %}>
+                <li {% if request.path == '/quotations/quotation-list/' %} class="active" {% endif %}>
                   <a class="nav-link" href="{% url 'quotation-list' %}">Quotations List</a>
                 </li>
               </ul>
@@ -88,7 +88,7 @@
             {% endif %}
             <!--Customer Dropdown Nav-->
             {% if user.is_superuser %}
-            <li {% if '/s11/' in request.path %} class="active" {% endif %}>
+            <li {% if '/customers/' in request.path %} class="active" {% endif %}>
               <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Customers</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li {% if request.path == '/customers/create-customer/' %} class="active" {% endif %}>
