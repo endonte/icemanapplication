@@ -12,7 +12,7 @@ class Designation(models.Model):
         ('3','Half-Agent'),
         ('4',''),
         ('5','Reserve Drivers'),
-        ('6',''),
+        ('6','Reserve Warehouse'),
         ('7','Agent'),
         ('8',''),
         ('9','Unresponsive'),
@@ -26,7 +26,7 @@ class Designation(models.Model):
     )
 
     def __str__(self):
-        return '{} {}'.format(self.designation)
+        return '{}'.format(self.designation)
 
     class Meta:
         ordering = ('priority', )
