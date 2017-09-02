@@ -45,10 +45,17 @@
 
       <div class="ibox-title">
         <div class="col-lg-6">
+          {% if not quote_pk.confirmation_status %}
           <h3>Add Products</h3>
+          {% else %}
+          <p class="text-danger">
+            QUOTE HAS BEEN CONFIRMED. NO ADDITIONAL CHANGES MAY BE MADE.
+          </p>
+          {% endif %}
         </div>
         <div class="col-lg-6">
           <span class="pull-right">
+            Subtotal: $ {{quote_pk.quote_subtotal}}
             GST: $ {{quote_pk.quote_gst}}
             Grand Total: $ {{quote_pk.quote_total}}
           </span>
@@ -56,7 +63,9 @@
 
       </div>
       <div class="ibox-content">
+        {% if not quote_pk.confirmation_status %}
         {% crispy form %}
+        {% endif %}
         <table class="footable table table-stripped toggle-arrow-tiny"
           data-page-size="15">
           <thead>
@@ -99,6 +108,13 @@
           </tr>
           </tfoot>
         </table>
+        {% if not quote_pk.confirmation_status %}
+        {% crispy form2 %}
+        {% else %}
+        <a href="{% url 'quotation-preview' quote_pk.id %}">
+          <button class="btn btn-block btn-outline btn-default">PROCEED</button>
+        </a>
+        {% endif %}
       </div>
   </div>
 </div>

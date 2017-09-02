@@ -1,5 +1,6 @@
 from django.conf.urls import url
-from .views import QuoteListView, CreateQuoteListView, CreateQuoteShippingListView, CreateQuoteProductListView
+from .views import QuoteListView, CreateQuoteListView
+from .views import CreateQuoteShippingListView, CreateQuoteProductListView, QuotePreviewListView
 
 urlpatterns = [
     url(
@@ -21,5 +22,10 @@ urlpatterns = [
         r'^create-quotation/quotation-product-(?P<pk>\d+)/$',
         CreateQuoteProductListView.as_view(),
         name='quotation-product-add'
-    )
+    ),
+    url(
+        r'^create-quotation/quotation-preview-(?P<pk>\d+)/$',
+        QuotePreviewListView.as_view(),
+        name='quotation-preview'
+    ),
 ]

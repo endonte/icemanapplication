@@ -56,10 +56,8 @@ class QuoteShippingExistingForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
-        #self.helper.form_class = 'form-inline'
         self.helper.form_show_labels = False
         self.helper.form_method = 'post'
-        #self.helper.form_action = ''
         self.helper.help_text_inline = True
         self.helper.form_error_title = 'Form Errors'
 
@@ -106,7 +104,6 @@ class QuoteProductTotalForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        #self.helper.form_action = ''
         self.helper.help_text_inline = True
         self.helper.form_error_title = 'Form Errors'
         self.helper.layout = Layout(
@@ -121,3 +118,20 @@ class QuoteProductTotalForm(forms.ModelForm):
 
         self.helper.add_input(Submit('submit', 'Add Product'))
         super(QuoteProductTotalForm, self).__init__(*args, **kwargs)
+
+class QuoteConfirmForm(forms.ModelForm):
+
+    class Meta:
+        model = Quote
+        fields = (
+        )
+
+    def __init__(self, *args, **kwargs):
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+        self.helper.form_method = 'post'
+        self.helper.help_text_inline = True
+        self.helper.form_error_title = 'Form Errors'
+
+        self.helper.add_input(Submit('submit', 'Confirm Quote', css_class='btn-block btn-primary'))
+        super(QuoteConfirmForm, self).__init__(*args, **kwargs)

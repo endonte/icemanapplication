@@ -36,22 +36,19 @@ class Quote(models.Model):
     quote_subtotal = models.DecimalField(
         max_digits=20,
         decimal_places=2,
-        blank=True,
-        null=True,
+        default=0.00,
         verbose_name='Subtotal',
     )
     quote_total = models.DecimalField(
         max_digits=20,
         decimal_places=2,
-        blank=True,
-        null=True,
+        default=0.00,
         verbose_name='Total',
     )
     quote_gst = models.DecimalField(
         max_digits=20,
         decimal_places=2,
-        blank=True,
-        null=True,
+        default=0.00,
         verbose_name='GST',
     )
     created_by = models.ForeignKey(

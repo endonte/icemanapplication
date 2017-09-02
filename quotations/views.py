@@ -9,7 +9,7 @@ from .models import Quote, Quote_Products
 from customers.models import Customer, Shipping_Details
 from products.models import Product
 from .forms import QuoteCreateForm, QuoteShippingNewForm, QuoteShippingExistingForm
-from .forms import QuoteProductTotalForm, QuoteProductNoTotalForm
+from .forms import QuoteProductTotalForm, QuoteProductNoTotalForm, QuoteConfirmForm
 
 class QuoteListView(ListView):
     model = Quote
@@ -115,6 +115,7 @@ class CreateQuoteShippingListView(ListView, ModelFormMixin):
 class CreateQuoteProductListView(ListView, ModelFormMixin):
     model = Quote_Products
     form_class = QuoteProductNoTotalForm
+    form_class2 = QuoteConfirmForm
     template_name = 'create-quotation-products.html'
     gst = Decimal(.07)
 
@@ -131,6 +132,7 @@ class CreateQuoteProductListView(ListView, ModelFormMixin):
         self.quote = Quote.objects.get(pk=self.kwargs['pk'])
         self.form_type()
         self.form = self.get_form(self.form_class)
+        self.form2 = self.get_form(self.form_class2)
         return ListView.get(self, request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -138,6 +140,7 @@ class CreateQuoteProductListView(ListView, ModelFormMixin):
         self.quote = Quote.objects.get(pk=self.kwargs['pk'])
         self.form_type()
         self.form = self.get_form(self.form_class)
+        self.form2 = self.get_form(self.form_class2)
 
         if self.form.is_valid():
             self.object = self.form.save(commit=False)
@@ -151,10 +154,11 @@ class CreateQuoteProductListView(ListView, ModelFormMixin):
                     self.object.quote_product_gst = self.object.quote_product_total * self.gst / (Decimal(1) + self.gst)
 
                 self.quote.quote_gst += self.object.quote_product_gst
-
+                self.quote.quote_total += self.object.quote_product_total
+                self.quote.quote_subtotal += self.object.quote_product_total/(Decimal(1)+self.gst)
             self.object.save()
             self.quote.save()
-            
+
             return HttpResponseRedirect(
                 reverse('quotation-product-add',
                     args=(
@@ -162,14 +166,40 @@ class CreateQuoteProductListView(ListView, ModelFormMixin):
                     )
                 )
             )
+        if self.form2.is_valid():
+            self.quote.confirmation_status = True
+            self.quote.save()
+
+            return HttpResponseRedirect(
+                reverse('quotation-preview',
+                    args=(
+                        self.kwargs['pk'],
+                    )
+                )
+            )
+            #return HttpResponseRedirect(
+            #    reverse('create-quotation-view')
+            #)
 
         return self.get(request, *args, **kwargs)
 
     def get_context_data(self, *args, **kwargs):
         context = super(CreateQuoteProductListView, self).get_context_data(*args, **kwargs)
         context['form'] = self.form
+        context['form2'] = self.form2
         context['quote_pk'] = self.quote
         context['quote_products'] = Quote_Products.objects.filter(
             quote_reference=self.quote
         )
+        return context
+
+
+class QuotePreviewListView(ListView):
+    model = Quote
+    template_name = 'create-quotation-preview.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(QuotePreviewListView, self).get_context_data(*args, **kwargs)
+        context['quote'] = Quote.objects.get(pk=self.kwargs['pk'])
+
         return context

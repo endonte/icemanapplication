@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% load staticfiles %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+  <h2>Quote ID: {{quote.id}}</h2>
+  <h3>{{quote.customer}} (Customer Id: {{quote.customer.id}})</h3>
+  <h3>{{quote_pk.get_quote_type_display}}</h3>
+</div>
+{% endblock %}
