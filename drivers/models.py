@@ -14,7 +14,7 @@ class Designation(models.Model):
         ('5','Reserve Drivers'),
         ('6','Reserve Warehouse'),
         ('7','Agent'),
-        ('8',''),
+        ('8','Agent\'s Driver'),
         ('9','Unresponsive'),
         ('10',''),
     )
