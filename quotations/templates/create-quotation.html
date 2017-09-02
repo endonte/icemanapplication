@@ -1,0 +1,38 @@
+{% extends "base.html" %}{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+{{ block.super }}
+
+<link href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.css' %}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+{% endblock css %}
+
+{% block javascript %}
+{{ block.super }}
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+<script type="text/javascript">
+  $('select').select2();
+</script>
+
+{% endblock javascript %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Select Customer:</h5>
+      </div>
+      <div class="ibox-content">
+        {% crispy form %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

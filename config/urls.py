@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^cp/', include('cp.urls')),
     url(r'^', include('products.urls')),
     url(r'^customers/', include('customers.urls')),
+    url(r'^quotations/', include('quotations.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

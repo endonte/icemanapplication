@@ -1,0 +1,87 @@
+{% extends "base.html" %}{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+
+{{ block.super }}
+<link href="{% static 'css/plugins/footable/footable.core.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+
+{{ block.super }}
+
+<script src="{% static 'js/plugins/footable/footable.all.min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable();
+
+    });
+
+</script>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Quotation List</h5>
+        </div>
+        <div class="ibox-content">
+          <input type="text" class="form-control input-sm m-b-xs" id="filter"
+                 placeholder="Search Quotations">
+          <table class="footable table table-stripped toggle-arrow-tiny"
+            data-page-size="15" data-filter=#filter>
+            <thead>
+              <tr>
+                <th data-toggle="true">Quote ID</th>
+                <th>Customer</th>
+                <th>Created Date</th>
+                <th data-hide="all">Billing Address</th>
+                <th data-hide="all"></th>
+                <th data-hide="all">Billing Postal</th>
+                <th data-hide="all">Shipping Address</th>
+                <th data-hide="all"></th>
+                <th data-hide="all">Shipping Postal</th>
+                <th>Created By</th>
+                <th>View</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for quote in quotations %}
+              <tr>
+                <td>{{quote.id}}</td>
+                <td>{{quote}}</td>
+                <td>{{quote.}}</td>
+                <td>{{quote.created_by}}</td>
+                <td>{{quote.}}</td>
+                <td>{{quote.}}</td>
+                <td>{{quote.}}</td>
+                <td>{{quote.}}</td>
+                <td>{{quote.}}</td>
+                <td>{{quote.}}</td>
+                <td><i class="fa fa-eye"></i></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="5">
+                    <ul class="pagination pull-right"></ul>
+                </td>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

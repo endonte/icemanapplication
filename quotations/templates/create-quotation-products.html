@@ -1,0 +1,106 @@
+{% extends "base.html" %}{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+
+{{block.super}}
+
+<link href="{% static 'css/plugins/footable/footable.core.css' %}" rel="stylesheet">
+
+<link href="{% static 'autocomplete_light/vendor/select2/dist/css/select2.css' %}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+{% endblock css %}
+
+{% block javascript %}
+
+{{block.super}}
+
+<script src="{% static 'js/plugins/footable/footable.all.min.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+<script type="text/javascript">
+  $('select').select2();
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable();
+    });
+</script>
+
+{% endblock javascript %}
+
+{% block content %}
+<div class="row wrapper border-bottom white-bg page-heading">
+  <h2>Quote ID: {{quote_pk.id}}</h2>
+  <h3>{{quote_pk.customer}} ({{quote_pk.customer.id}})</h3>
+  <h3>{{quote_pk.get_quote_type_display}}</h3>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-12">
+
+      <div class="ibox-title">
+        <div class="col-lg-6">
+          <h3>Add Products</h3>
+        </div>
+        <div class="col-lg-6">
+          <span class="pull-right">
+            GST: $ {{quote_pk.quote_gst}}
+            Grand Total: $ {{quote_pk.quote_total}}
+          </span>
+        </div>
+
+      </div>
+      <div class="ibox-content">
+        {% crispy form %}
+        <table class="footable table table-stripped toggle-arrow-tiny"
+          data-page-size="15">
+          <thead>
+            <tr>
+              <th data-toggle="true">Product Name</th>
+              <th>UOM</th>
+              {% if quote_pk.quote_type == 'T3' or quote_pk.quote_type == 'T4' %}<th>Qty</th>{% endif %}
+              <th>Price</th>
+              {% if quote_pk.quote_type == 'T3' or quote_pk.quote_type == 'T4' %}
+              <th>
+                GST ({% if quote_pk.quote_type == 'T3' %}
+                  ex.
+                  {% else %}
+                  inc.
+                  {% endif %})
+              </th>
+              <th>Item Total</th>
+              {% endif %}
+              <th {% if quote_pk.quote_type == 'T3' or quote_pk.quote_type == 'T4' %}data-hide="all"{% endif %}>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in quote_products %}
+            <tr>
+              <td>{{item.quote_product.product_name}}</td>
+              <td>{{item.quote_product.uom}}</td>
+              {% if item.quote_product_qty %}<td>{{item.quote_product_qty}}</td>{% endif %}
+              <td>$ {{item.quote_product_price}}</td>
+              {% if item.quote_product_qty %}<td>$ {{item.quote_product_gst}}</td>
+              <td>$ {{item.quote_product_total}}</td>{% endif %}
+              <td>{{item.quote_product_description}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+          <tr>
+              <td colspan="5">
+                  <ul class="pagination pull-right"></ul>
+              </td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+  </div>
+</div>
+
+{% endblock %}

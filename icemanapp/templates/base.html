@@ -52,7 +52,7 @@
                 <li {% if request.path == '/drivers/driver-list/' %} class="active" {% endif %}>
                   <a class="nav-link" href="{% url 'driver-list' %}">Driver List</a>
                 </li>
-                <li {% if request.path == '/tracker/stores/' %} class="active" {% endif %}>
+                <li {% if request.path == '/drivers/region-search/' %} class="active" {% endif %}>
                   <a class="nav-link" href="{% url 'region-search' %}">Region Search</a>
                 </li>
               </ul>
@@ -78,10 +78,10 @@
               <a href="#"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Quotations</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
                 <li {% if request.path == '/s11/active-requests/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="#">Create Quotation</a>
+                  <a class="nav-link" href="{% url 'create-quotation' %}">Create Quotation</a>
                 </li>
                 <li {% if request.path == '/s11/request-history/' %} class="active" {% endif %}>
-                  <a class="nav-link" href="#">Quotations List</a>
+                  <a class="nav-link" href="{% url 'quotation-list' %}">Quotations List</a>
                 </li>
               </ul>
             </li>
@@ -155,11 +155,9 @@
 
         </nav>
       </div>
-      <div class="wrapper wrapper-content animated fadeInRight">
         {% block content %}
 
         {% endblock %}
-      </div>
 
       <div class="footer">
         <div class="pull-right">

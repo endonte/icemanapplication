@@ -61,7 +61,6 @@ class Drivers(models.Model):
         'Postal_Areas',
         verbose_name='Regions Served',
         blank=True,
-        null=True,
     )
     delivery_restrictions = models.CharField(
         max_length=200,
