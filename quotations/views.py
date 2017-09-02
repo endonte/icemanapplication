@@ -6,7 +6,7 @@ from decimal import Decimal
 from icemanapp.users.models import User
 from django.utils import timezone
 from .models import Quote, Quote_Products
-from customers.models import Customer, Shipping_Details
+from customers.models import Customer, Shipping_Details, Billing_Details
 from products.models import Product
 from .forms import QuoteCreateForm, QuoteShippingNewForm, QuoteShippingExistingForm
 from .forms import QuoteProductTotalForm, QuoteProductNoTotalForm, QuoteConfirmForm
@@ -39,6 +39,8 @@ class CreateQuoteListView(ListView, ModelFormMixin):
             self.object = self.form.save(commit=False)
             self.object.created_by = request.user
             self.object.created_date = timezone.now()
+            if Billing_Details.objects.get(customer_id=self.object.customer.id):
+                self.object.billing_address = Billing_Details.objects.get(customer_id=self.object.customer.id)
             self.object.save()
 
             return HttpResponseRedirect(reverse('quotation-shipping-add', args=(self.object.pk,)))
@@ -59,8 +61,8 @@ class CreateQuoteShippingListView(ListView, ModelFormMixin):
 
     def get(self, request, *args, **kwargs):
         self.object = None
-        quote_id = Quote.objects.get(id=self.kwargs['pk'])
-        quote_customer = quote_id.customer
+        self.quote_id = Quote.objects.get(id=self.kwargs['pk'])
+        quote_customer = self.quote_id.customer
         # For existing shipping details
         self.shipping_qs = Shipping_Details.objects.filter(customer_id=quote_customer.id)
         # For new shipping details
@@ -70,8 +72,8 @@ class CreateQuoteShippingListView(ListView, ModelFormMixin):
 
     def post(self, request, *args, **kwargs):
         self.object = None
-        quote_id = Quote.objects.get(id=self.kwargs['pk'])
-        quote_customer = quote_id.customer
+        self.quote_id = Quote.objects.get(id=self.kwargs['pk'])
+        quote_customer = self.quote_id.customer
         # For existing shipping details
         self.shipping_qs = Shipping_Details.objects.filter(customer_id=quote_customer.id)
         # For new shipping details
@@ -92,7 +94,9 @@ class CreateQuoteShippingListView(ListView, ModelFormMixin):
                 )
             )
         elif self.form2.is_valid():
-            quote_id.shipping_address = self.object
+            self.object = self.form2.save(commit=False)
+            self.quote_id.shipping_address=self.object.shipping_address
+            self.quote_id.save()
             return HttpResponseRedirect(
                 reverse('quotation-product-add',
                     args=(
@@ -108,7 +112,7 @@ class CreateQuoteShippingListView(ListView, ModelFormMixin):
         self.form2.fields['shipping_address'].queryset = self.shipping_qs
         context['form'] = self.form
         context['form2'] = self.form2
-        context['quote_pk'] = Quote.objects.get(pk=self.kwargs['pk'])
+        context['quote_pk'] = self.quote_id
 
         return context
 
@@ -201,5 +205,8 @@ class QuotePreviewListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(QuotePreviewListView, self).get_context_data(*args, **kwargs)
         context['quote'] = Quote.objects.get(pk=self.kwargs['pk'])
+        context['products'] = Quote_Products.objects.filter(
+            quote_reference=Quote.objects.get(pk=self.kwargs['pk'])
+        )
 
         return context

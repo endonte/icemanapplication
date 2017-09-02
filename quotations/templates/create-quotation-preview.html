@@ -1,9 +1,96 @@
 {% extends "base.html" %}{% load staticfiles %}
 
+{% block css %}
+{{block.super}}
+<link href="{% static 'css/plugins/footable/footable.core.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+{{block.super}}
+<script>
+    $(document).ready(function() {
+
+        $('.footable').footable();
+    });
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="row wrapper border-bottom white-bg page-heading">
   <h2>Quote ID: {{quote.id}}</h2>
   <h3>{{quote.customer}} (Customer Id: {{quote.customer.id}})</h3>
   <h3>{{quote_pk.get_quote_type_display}}</h3>
+</div>
+<div class="ibox-content p-xl">
+  <div class="row">
+    <div class="col-sm-6">
+
+    </div>
+    <div class="col-sm-6 text-right">
+      <div class="row">
+        <strong>Billing Details:</strong><br />
+        {{quote.billing_address.billing_address_line1}}<br />
+        {{quote.billing_address.billing_address_line2}}<br />
+        {{quote.billing_address.billing_postal}}<br />
+      </div>
+      <div class="row">
+        <strong>Shipping Details:</strong><br />
+        {{quote.shipping_address.shipping_address_line1}}<br />
+        {{quote.shipping_address.shipping_address_line2}}<br />
+        {{quote.shipping_address.shipping_postal}}<br />
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <table class="footable table toggle-arrow-tiny"
+      data-page-size="15">
+      <thead>
+        <tr>
+          <th data-toggle="true">Product Name</th>
+          <th>UOM</th>
+          {% if quote.quote_type == 'T3' or quote.quote_type == 'T4' %}<th>Qty</th>{% endif %}
+          <th>Price</th>
+          {% if quote.quote_type == 'T3' or quote.quote_type == 'T4' %}
+          <th>
+            GST ({% if quote.quote_type == 'T3' %}
+              ex.
+              {% else %}
+              inc.
+              {% endif %})
+          </th>
+          <th>Item Total</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{product.quote_product.product_name}}</td>
+          <td>{{product.quote_product.uom}}</td>
+          {% if product.quote_product_qty %}<td>{{product.quote_product_qty}}</td>{% endif %}
+          <td>$ {{product.quote_product_price}}</td>
+          {% if product.quote_product_qty %}<td>$ {{product.quote_product_gst}}</td>
+          <td>$ {{product.quote_product_total}}</td>{% endif %}
+        </tr>
+        {% if product.quote_product_description %}
+          <tr>
+            <td></td>
+            <td colspan="3">{{product.quote_product_description}}</td>
+          </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+      <tr>
+          <td colspan="5">
+              <ul class="pagination pull-right"></ul>
+          </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+
 </div>
 {% endblock %}
