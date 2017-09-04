@@ -63,7 +63,7 @@ class CreateBillingListView(ListView, ModelFormMixin):
             self.object.customer_id=customer
             self.object.save()
 
-        return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('customer-list'))
 
     def get_context_data(self, *args, **kwargs):
         context = super(CreateBillingListView, self).get_context_data(*args, **kwargs)
