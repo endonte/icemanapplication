@@ -1,6 +1,6 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, View
 from django.views.generic.edit import ModelFormMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from decimal import Decimal
 from icemanapp.users.models import User
@@ -10,6 +10,8 @@ from customers.models import Customer, Shipping_Details, Billing_Details
 from products.models import Product
 from .forms import QuoteCreateForm, QuoteShippingNewForm, QuoteShippingExistingForm
 from .forms import QuoteProductTotalForm, QuoteProductNoTotalForm, QuoteConfirmForm
+from .utils import render_to_pdf
+
 
 class QuoteListView(ListView):
     model = Quote
@@ -210,3 +212,21 @@ class QuotePreviewListView(ListView):
         )
 
         return context
+
+class PrintView(View):
+    def get(self, request, *args, **kwargs):
+        data = {
+            'quote_pk': Quote.objects.get(pk=self.kwargs['pk']),
+            'quote_products': Quote_Products.objects.filter(
+                quote_reference=Quote.objects.get(pk=self.kwargs['pk'])
+            ),
+        }
+        pdf = render_to_pdf('pdf/quotation-pdf-1.html', data)
+        instance = Quote.objects.get(pk=self.kwargs['pk'])
+        if instance.quote_type == 'T2':
+            pdf = render_to_pdf('pdf/quotation-pdf-2.html', data)
+        elif instance.quote_type == 'T3':
+            pdf = render_to_pdf('pdf/quotation-pdf-3.html', data)
+        elif instance.quote_type == 'T4':
+            pdf = render_to_pdf('pdf/quotation-pdf-4.html', data)
+        return HttpResponse(pdf, content_type='application/pdf')

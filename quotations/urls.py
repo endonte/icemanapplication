@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from .views import QuoteListView, CreateQuoteListView
 from .views import CreateQuoteShippingListView, CreateQuoteProductListView, QuotePreviewListView
+from .views import PrintView
 
 urlpatterns = [
     url(
@@ -28,4 +29,5 @@ urlpatterns = [
         QuotePreviewListView.as_view(),
         name='quotation-preview'
     ),
+    url(r'^quotation_list/quotation-id-(?P<pk>\d+)/$', PrintView.as_view(), name='pdf_printer'),
 ]

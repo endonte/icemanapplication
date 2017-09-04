@@ -58,15 +58,19 @@
               <tr>
                 <td>{{quote.id}}</td>
                 <td>{{quote}}</td>
-                <td>{{quote.}}</td>
-                <td>{{quote.created_by}}</td>
-                <td>{{quote.}}</td>
-                <td>{{quote.}}</td>
-                <td>{{quote.}}</td>
-                <td>{{quote.}}</td>
-                <td>{{quote.}}</td>
-                <td>{{quote.}}</td>
-                <td><i class="fa fa-eye"></i></td>
+                <td>{{quote.created_date}}</td>
+                <td>{{quote.billing_address.billing_address_line1}}</td>
+                <td>{{quote.billing_address.billing_address_line2}}</td>
+                <td>{{quote.billing_address.billing_postal}}</td>
+                <td>{{quote.shipping_address.shipping_address_line1}}</td>
+                <td>{{quote.shipping_address.shipping_address_line2}}</td>
+                <td>{{quote.shipping_address.shipping_postal}}</td>
+                <td>{{quote.created_by.name}}</td>
+                <td>
+                  <a href="{% url 'pdf_printer' quote.id %}" target="_blank">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                </td>
               </tr>
               {% endfor %}
             </tbody>

@@ -1,0 +1,55 @@
+{% extends "quotation-pdf-base.html" %}<!DOCTYPE html>
+{% block content %}
+  <!-- HTML Content -->
+<table cellpadding="5">
+  <tr>
+    <th width="25" align="left">
+      #
+    </th>
+    <th align="left">
+      Item Name
+    </th>
+    <th width="80" align="left">
+      Price
+    </th>
+    <th width="80" align="left">
+      UOM
+    </th>
+  </tr>
+  {% for item in quote_products %}
+    <tr>
+      <td>
+        {{forloop.counter}}
+      </td>
+      <td>
+        {{item.quote_product.product_name}}
+      </td>
+      <td>
+        $ {{item.quote_product_price}}
+      </td>
+      <td>
+        {{item.quote_product.uom}}
+      </td>
+    </tr>
+
+    {% if item.quote_product_description %}
+      <tr>
+        <td>
+        </td>
+        <td colspan="2">
+          {{item.quote_product_description}}
+        </td>
+
+      </tr>
+    {% endif %}
+
+
+  {% endfor %}
+</table>
+{% endblock %}
+
+{% block tnc %}
+<p style="font-size: 8pt;">
+  2. GST is not included in the quoted prices.
+</p>
+{% endblock tnc %}

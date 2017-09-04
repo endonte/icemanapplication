@@ -85,7 +85,7 @@
 <body>
   <!-- Content for Static Frame 'header_frame' -->
   <div id="header_content1">
-    <img src="sales/static/images/quotationlogo.png" />
+    <img src="icemanapp/static/images/quotationlogo.png" />
   </div>
   <div id="header_content2">
     <p style="font-size: 12pt">
@@ -134,41 +134,32 @@
       <strong>Customer Details:</strong>
     </p>
     <p>
-      {{quote_pk.customer_name}}
-    </p>
-    {% if quote_pk.customer_name.business_name %}
-      <p>
-        Attn: {{quote_pk.customer_name.contact}}
-      </p>
+      Attn To: {{quote_pk.customer.contact_name}}<br />
+    {% if quote_pk.customer.company_name %}
+        {{quote_pk.customer.company_name}}<br />
     {% endif %}
-    <br />
-    {% if quote_pk.customer_name.business_reg_no %}
-      <p>
-        {{quote_pk.customer_name.business_reg_no}}
-      </p>
+    {% if quote_pk.customer.business_reg_no %}
+        {{quote_pk.customer.business_reg_no}}<br />
     {% endif %}
-    <p>
-      {{quote_pk.customer_name.contact_num}}
-    </p>
-    <p>
-      {{quote_pk.customer_name.contact_email}}
+      Phone #: {{quote_pk.customer.contact_number}}<br />
+      Email: {{quote_pk.customer.contact_email}}
     </p>
   </div>
   <div id="billing_details">
     <p>
       <strong>Billing Details:</strong>
     </p>
-    {% if quote_pk.customer_name.billing_address_1 %}
+    {% if quote_pk.billing_address.billing_address_line1 %}
       <p>
-        {{quote_pk.customer_name.billing_address_1}}
+        {{quote_pk.billing_address.billing_address_line1}}
       </p>
-      {% if quote_pk.customer_name.billing_address_2 %}
+      {% if quote_pk.billing_address.billing_address_line2 %}
         <p>
-          {{quote_pk.customer_name.billing_address_2}}
+          {{quote_pk.billing_address.billing_address_line2}}
         </p>
       {% endif %}
       <p>
-        {{quote_pk.customer_name.billing_postal}}
+        S({{quote_pk.billing_address.billing_postal}})
       </p>
     {% endif %}
   </div>
@@ -177,15 +168,15 @@
       <strong>Shipping Details:</strong>
     </p>
     <p>
-      {{quote_pk.shipping_address1}}
+      {{quote_pk.shipping_address.shipping_address_line1}}
     </p>
-    {% if quote_pk.shipping_address2 %}
+    {% if quote_pk.shipping_address.shipping_address_line2 %}
       <p>
-        {{quote_pk.shipping_address2}}
+        {{quote_pk.shipping_address.shipping_address_line2}}
       </p>
     {% endif %}
     <p>
-      {{quote_pk.shipping_postal}}
+      S({{quote_pk.shipping_address.shipping_postal}})
     </p>
   </div>
   <!-- Content for signing and showing the quotation creator -->
