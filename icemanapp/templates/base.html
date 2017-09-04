@@ -73,7 +73,6 @@
               </ul>
             </li>
             <!--Quotation Dropdown Nav-->
-            {% if user.is_superuser %}
             <li {% if '/quotations/' in request.path %} class="active" {% endif %}>
               <a href="#"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Quotations</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
@@ -85,9 +84,7 @@
                 </li>
               </ul>
             </li>
-            {% endif %}
             <!--Customer Dropdown Nav-->
-            {% if user.is_superuser %}
             <li {% if '/customers/' in request.path %} class="active" {% endif %}>
               <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Customers</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
@@ -99,13 +96,10 @@
                 </li>
               </ul>
             </li>
-            {% endif %}
             <!--Product Button Nav-->
-            {% if user.is_superuser %}
             <li {% if request.path == '/product-list/' %} class="active" {% endif %}>
               <a class="nav-link" href="{% url 'product-list' %}"><i class="fa fa-snowflake-o"></i><span class="nav-label">Products</span></a>
             </li>
-            {% endif %}
             <!--Admin Dropdown Nav-->
             {% if user.is_superuser %}
             <li {% if '/cp/' in request.path %} class="active" {% endif %}>
