@@ -14,6 +14,7 @@ class CustomerForm(forms.ModelForm):
                 'contact_email',
                 'company_name',
                 'company_reg_no',
+                'customer_code',
         )
 
     def __init__(self, *args, **kwargs):

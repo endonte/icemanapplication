@@ -8,6 +8,7 @@ from django.utils import timezone
 from .models import Quote, Quote_Products
 from customers.models import Customer, Shipping_Details, Billing_Details
 from products.models import Product
+from orders.models import CustomerItems
 from .forms import QuoteCreateForm, QuoteShippingNewForm, QuoteShippingExistingForm
 from .forms import QuoteProductTotalForm, QuoteProductNoTotalForm, QuoteConfirmForm
 from .utils import render_to_pdf
@@ -133,6 +134,7 @@ class CreateQuoteProductListView(ListView, ModelFormMixin):
         elif template == 'T3' or template == 'T4':
             self.form_class = QuoteProductTotalForm
 
+
     def get(self, request, *args, **kwargs):
         self.object = None
         self.quote = Quote.objects.get(pk=self.kwargs['pk'])
@@ -162,6 +164,12 @@ class CreateQuoteProductListView(ListView, ModelFormMixin):
                 self.quote.quote_gst += self.object.quote_product_gst
                 self.quote.quote_total += self.object.quote_product_total
                 self.quote.quote_subtotal += self.object.quote_product_total/(Decimal(1)+self.gst)
+            new_orderable_item = CustomerItems(
+                item_reference=self.object.quote_product,
+                customer_reference=self.quote.customer,
+                item_price=self.object.quote_product_price,
+                )
+            new_orderable_item.save()
             self.object.save()
             self.quote.save()
 

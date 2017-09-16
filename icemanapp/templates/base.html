@@ -58,6 +58,21 @@
               </ul>
             </li>
             <!--711 Dropdown Nav-->
+            <li {% if '/orders/' in request.path %} class="active" {% endif %}>
+              <a href="#"><i class="fa fa-cube"></i> <span class="nav-label">Customer Orders</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li {% if request.path == '/orders/create-order/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="{% url 'create-order' %}">Create Order</a>
+                </li>
+                <li {% if request.path == '/orders/active-orders/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="{% url 'active-orders' %}">Active Orders</a>
+                </li>
+                <li {% if request.path == '/orders/order-list/' %} class="active" {% endif %}>
+                  <a class="nav-link" href="{% url 'order-list' %}">Order List</a>
+                </li>
+              </ul>
+            </li>
+            <!--711 Dropdown Nav-->
             <li {% if '/s11/' in request.path %} class="active" {% endif %}>
               <a href="#"><i class="fa fa-industry"></i> <span class="nav-label">711</span> <span class="fa arrow"></span></a>
               <ul class="nav nav-second-level">
@@ -152,6 +167,13 @@
         {% block content %}
         <div class="row wrapper border-bottom white-bg page-heading">
           <h2>DASHBOARD</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="widget lazur-bg">
+              
+            </div>
+          </div>
         </div>
         {% endblock %}
 

@@ -30,6 +30,12 @@ class Customer(models.Model):
         null=True,
         blank=True,
     )
+    customer_code = models.CharField(
+        verbose_name='Customer Code',
+        max_length=10,
+        null=True,
+        blank=True
+        )
     created_by = models.ForeignKey(
         User,
         verbose_name='Created By',

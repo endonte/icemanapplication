@@ -15,10 +15,8 @@ class QuoteCreateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
-        #self.helper.form_class = 'form-inline'
         self.helper.form_show_labels = False
         self.helper.form_method = 'post'
-        #self.helper.form_action = ''
         self.helper.help_text_inline = False
         self.helper.form_error_title = 'Form Errors'
 
@@ -37,9 +35,7 @@ class QuoteShippingNewForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.helper = FormHelper()
-        #self.helper.form_class = 'form-inline'
         self.helper.form_method = 'post'
-        #self.helper.form_action = ''
         self.helper.help_text_inline = True
         self.helper.form_error_title = 'Form Errors'
 

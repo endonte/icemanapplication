@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 from datetime import datetime
 from icemanapp.users.models import User
-from products.models import Product
 
 
 class Quote(models.Model):
