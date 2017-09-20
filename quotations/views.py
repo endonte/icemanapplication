@@ -196,7 +196,7 @@ class CreateQuoteProductListView(ListView, ModelFormMixin):
         context['quote_pk'] = self.quote
         context['quote_products'] = Quote_Products.objects.filter(
             quote_reference=self.quote
-        )
+        ).order_by('id')
         return context
 
 
@@ -219,7 +219,7 @@ class PrintView(View):
             'quote_pk': Quote.objects.get(pk=self.kwargs['pk']),
             'quote_products': Quote_Products.objects.filter(
                 quote_reference=Quote.objects.get(pk=self.kwargs['pk'])
-            ),
+            ).order_by('id'),
         }
         pdf = render_to_pdf('pdf/quotation-pdf-1.html', data)
         instance = Quote.objects.get(pk=self.kwargs['pk'])
