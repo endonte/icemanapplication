@@ -1,5 +1,5 @@
 from django import forms
-from .models import Orders_Adhoc, OrderItems
+from .models import Orders_Adhoc, OrderItems, CustomerItems
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div
 
@@ -24,6 +24,7 @@ class OrderCreateForm(forms.ModelForm):
         super(OrderCreateForm, self).__init__(*args, **kwargs)
 
 class OrderProductForm(forms.ModelForm):
+
     class Meta:
         model = OrderItems
         fields = (
@@ -33,15 +34,19 @@ class OrderProductForm(forms.ModelForm):
         )
 
     def __init__(self, *args, **kwargs):
+        orderid = kwargs.pop('pk')
+        print(orderid)
+        order = Orders_Adhoc.objects.get(pk=orderid)
+
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.help_text_inline = True
         self.helper.form_error_title = 'Form Errors'
         self.helper.layout = Layout(
             Div(
-                Div('quote_product', css_class = "col-sm-4"),
-                Div('quote_product_price', css_class = "col-sm-2"),
-                Div('quote_product_description', css_class = "col-sm-6 "),
+                Div('order_product', css_class = "col-sm-4"),
+                Div('order_product_qty', css_class = "col-sm-2"),
+                Div('additional_details', css_class = "col-sm-6 "),
                 css_class = 'row'
             )
         )

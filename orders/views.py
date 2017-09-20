@@ -81,7 +81,7 @@ class OrderAddProductListView(ListView, ModelFormMixin):
 	def post(self, request, *args, **kwargs):
 		self.object = None
 		self.order = Orders_Adhoc.objects.get(pk=self.kwargs['pk'])
-		self.form = self.get_form(self.form_class)
+		self.form = OrderProductForm(pk=self.kwargs['pk'])
 		self.form2 = self.get_form(self.form_class2)
 
 		if self.form.is_valid():
