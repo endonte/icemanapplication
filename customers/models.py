@@ -38,7 +38,7 @@ class Customer(models.Model):
     def __str__(self):
         if self.company_name:
             return self.company_name
-        return self.contact
+        return self.contact_name
 
 class Billing_Details(models.Model):
     customer_id = models.OneToOneField(Customer,
