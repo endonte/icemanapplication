@@ -41,8 +41,9 @@ class CreateQuoteListView(ListView, ModelFormMixin):
             self.object = self.form.save(commit=False)
             self.object.created_by = request.user
             self.object.created_date = timezone.now()
-            if Billing_Details.objects.get(customer_id=self.object.customer.id):
-                self.object.billing_address = Billing_Details.objects.get(customer_id=self.object.customer.id)
+            billing_qs = Billing_Details.objects.filter(customer_id=self.object.customer.id)
+            if billing_qs:
+                self.object.billing_address = billing_qs
             self.object.save()
 
             return HttpResponseRedirect(reverse('quotation-shipping-add', args=(self.object.pk,)))
@@ -183,9 +184,6 @@ class CreateQuoteProductListView(ListView, ModelFormMixin):
                     )
                 )
             )
-            #return HttpResponseRedirect(
-            #    reverse('create-quotation-view')
-            #)
 
         return self.get(request, *args, **kwargs)
 
