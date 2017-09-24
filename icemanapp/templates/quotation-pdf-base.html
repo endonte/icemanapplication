@@ -175,9 +175,11 @@
         {{quote_pk.shipping_address.shipping_address_line2}}
       </p>
     {% endif %}
-    <p>
-      S({{quote_pk.shipping_address.shipping_postal}})
-    </p>
+    {% if quote_pk.shipping_address.shipping_postal %}
+      <p>
+        S({{quote_pk.shipping_address.shipping_postal}})
+      </p>
+    {% endif %}
   </div>
   <!-- Content for signing and showing the quotation creator -->
   <div id="creator_content">
