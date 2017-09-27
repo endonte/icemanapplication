@@ -55,11 +55,23 @@
     </div>
     <div class="col-sm-6 text-right">
       <div class="row">
+        <strong>Customer Details:</strong><br />
+        Attn To: {{quote.customer.contact_name}}<br />
+      {% if quote.customer.company_name %}
+          {{quote.customer.company_name}}<br />
+      {% endif %}
+      {% if quote.customer.business_reg_no %}
+          {{quote.customer.business_reg_no}}<br />
+      {% endif %}
+        Phone #: {{quote.customer.contact_number}}<br />
+        Email: {{quote.customer.contact_email}}
+      </div><br />
+      <div class="row">
         <strong>Billing Details:</strong><br />
         {{quote.billing_address.billing_address_line1}}<br />
         {{quote.billing_address.billing_address_line2}}<br />
         {{quote.billing_address.billing_postal}}<br />
-      </div>
+      </div><br />
       <div class="row">
         <strong>Shipping Details:</strong><br />
         {{quote.shipping_address.shipping_address_line1}}<br />
