@@ -43,7 +43,7 @@ class CreateQuoteListView(ListView, ModelFormMixin):
             self.object.created_date = timezone.now()
             billing_qs = Billing_Details.objects.filter(customer_id=self.object.customer.id)
             if billing_qs:
-                self.object.billing_address = billing_qs
+                self.object.billing_address = Billing_Details.objects.get(customer_id=self.object.customer.id)
             self.object.save()
 
             return HttpResponseRedirect(reverse('quotation-shipping-add', args=(self.object.pk,)))
