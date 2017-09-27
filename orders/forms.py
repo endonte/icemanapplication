@@ -34,10 +34,6 @@ class OrderProductForm(forms.ModelForm):
         )
 
     def __init__(self, *args, **kwargs):
-        orderid = kwargs.pop('pk')
-        print(orderid)
-        order = Orders_Adhoc.objects.get(pk=orderid)
-
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.help_text_inline = True

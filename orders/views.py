@@ -81,7 +81,8 @@ class OrderAddProductListView(ListView, ModelFormMixin):
 	def post(self, request, *args, **kwargs):
 		self.object = None
 		self.order = Orders_Adhoc.objects.get(pk=self.kwargs['pk'])
-		self.form = OrderProductForm(pk=self.kwargs['pk'])
+		self.form = self.get_form(self.form_class)
+		self.form.order_product = Product.objects.get(id=1)
 		self.form2 = self.get_form(self.form_class2)
 
 		if self.form.is_valid():
@@ -91,8 +92,8 @@ class OrderAddProductListView(ListView, ModelFormMixin):
 			self.object.save()
 
 			return HttpResponseRedirect(reverse(
-				'order-add-product', 
-				args=(self.order.pk,)
+				'order-add-product',
+				args=(self.kwargs['pk'],)
 				))
 
 		if self.form2.is_valid():
@@ -114,5 +115,3 @@ class OrderAddProductListView(ListView, ModelFormMixin):
 		    order_reference=self.order
 		)
 		return context
-
-
